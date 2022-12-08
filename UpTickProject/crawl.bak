@@ -16,7 +16,7 @@ function createLink($src, $url) {
         $src = $scheme . "://" . $host . $src;
     }
     else if(substr($src, 0, 2) == "./") {
-		$src = $scheme . "://" . $host . dirname(parse_url($url)["path"]) . substr($src, 1);
+        $src = $scheme . "://" . $host . dirname(parse_url($url)["path"]) . substring($src, 1);
     }
     else if(substr($src, 0, 3) == "../") {
         $src = $scheme . "://" . $host . "/" . $src;
@@ -27,45 +27,6 @@ function createLink($src, $url) {
 
     return $src;
 
-}
-
-function getDetails($url) {
-
-    $parser = new DomDocumentParser($url);
-
-    $titleArray = $parser->getTitleTags();
-
-    if(sizeof($titleArray) == 0 || $titleArray->item(0) == NULL) {
-        return;
-    }
-
-    $title = $titleArray->item(0)->nodeValue;
-    $title = str_replace("\n", "", $title);
-
-    if($title == "") {
-        return;
-    }
-
-    $description = "";
-    $keywords = "";
-
-    $metasArray = $parser->getMetaTags();
-
-    foreach($metasArray as $meta) {
-
-        if($meta->getAttribute("name") == "description") {
-            $description = $meta->getAttribute("content");
-        }
-
-        if($meta->getAttribute("name") == "keywords") {
-            $keywords = $meta->getAttribute("content");
-        }
-    }
-
-    $description = str_replace("\n", "", $description);
-    $keywords = str_replace("\n", "", $keywords);
-
-    echo "URL: $url, Description: $description,  keywords: $keywords<br/>";
 }
 
 function followLinks($url) {
@@ -86,9 +47,6 @@ function followLinks($url) {
         else if(substr($href, 0, 11) == "javascript:") {
             continue;
         }
-        else if(substr($href, 0,6) == "mailTo") {
-            continue;
-        }
 
         $href = createLink($href, $url);
 
@@ -96,12 +54,10 @@ function followLinks($url) {
             $alreadyCrawled[] = $href;
             $crawling[] = $href;
 
-            getDetails($href);
+            // Insert $href
         }
 
-        //else return;
-
-        //echo $href . "<br />";
+        echo $href . "<br />";
     }
 
     array_shift($crawling);
@@ -112,6 +68,6 @@ function followLinks($url) {
 
 }
 
-$startUrl = "http://www.gdjevans.com";
+$startUrl = "http://www.google.com";
 followLinks($startUrl);
 ?>
