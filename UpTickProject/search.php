@@ -1,6 +1,7 @@
 <?php
 
 include("config.php");
+include("classes/SiteResultsProvider.php");
 
     if(isset($_GET["term"])) {
         $term = $_GET["term"];
@@ -42,7 +43,7 @@ include("config.php");
 
                             <div class="searchBarContainer">
 
-                                <input class="searchBox" type="text" name="term">
+                                <input class="searchBox" type="text" name="term" value="<?php echo $term;?>">
                                 <button class="searchButton">
                                     <img src="assets/imgs/icons/magnifyingGlass.png"/>
                                 </button>
@@ -64,6 +65,19 @@ include("config.php");
                     </ul>
                 </div>
             </div>
+
+            <div class="mainResultsSection">
+                <?php
+                    $resultsProvider = new SiteResultsProvider($con);
+
+                    $numResults = $resultsProvider->getNumResults($term);
+
+                    echo "<p class='resultsCount'>$numResults results found";
+
+                    echo $resultsProvider->getResultsHtml(1, 20, $term);
+                ?>
+            </div>
+
         </div>
     </body>
 </html>

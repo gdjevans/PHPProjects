@@ -184,6 +184,6 @@ function followLinks($url) {
 
 }
 
-$startUrl = "https://www.purina.co.uk/";
+$startUrl = "https://www.gdjevans.com/";
 followLinks($startUrl);
 ?>
