@@ -184,6 +184,6 @@ function followLinks($url) {
 
 }
 
-$startUrl = "https://www.gdjevans.com/";
+$startUrl = "https://www.imdb.com";
 followLinks($startUrl);
 ?>
