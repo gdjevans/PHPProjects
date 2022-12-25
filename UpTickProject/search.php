@@ -22,6 +22,7 @@ include("classes/SiteResultsProvider.php");
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Welcome to UpTick</title>
         <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     </head>
     <body>
         <div class="wrapper">
@@ -38,7 +39,7 @@ include("classes/SiteResultsProvider.php");
                         <form action="search.php" method="GET">
 
                             <div class="searchBarContainer">
-
+                                <input type="hidden" name="type" value="<?php echo $type; ?>">
                                 <input class="searchBox" type="text" name="term" value="<?php echo $term;?>">
                                 <button class="searchButton">
                                     <img src="assets/imgs/icons/magnifyingGlass.png"/>
@@ -135,5 +136,6 @@ include("classes/SiteResultsProvider.php");
             </div>
 
         </div>
+        <script type="text/javascript" src="assets/js/script.js"></script>
     </body>
 </html>
