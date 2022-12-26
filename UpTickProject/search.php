@@ -2,6 +2,7 @@
 
 include("config.php");
 include("classes/SiteResultsProvider.php");
+include("classes/ImageResultsProvider.php");
 
     if(isset($_GET["term"])) {
         $term = $_GET["term"];
@@ -65,8 +66,15 @@ include("classes/SiteResultsProvider.php");
 
             <div class="mainResultsSection">
                 <?php
-                    $resultsProvider = new SiteResultsProvider($con);
-                    $pageSize = 20;
+                    if($type == "sites") {
+                        $resultsProvider = new SiteResultsProvider($con);
+                        $pageSize = 20;
+                    }
+                    else{
+                        $resultsProvider = new ImageResultsProvider($con);
+                        $pageSize = 30;
+                    }
+                    
 
                     $numResults = $resultsProvider->getNumResults($term);
 
@@ -136,6 +144,7 @@ include("classes/SiteResultsProvider.php");
             </div>
 
         </div>
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
         <script type="text/javascript" src="assets/js/script.js"></script>
     </body>
 </html>
